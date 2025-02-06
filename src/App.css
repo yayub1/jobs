@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@import "tailwindcss";
+@theme {
+  --breakpoint-ss: 23.5rem; /* ~480px - very small screens */
+  --breakpoint-xs: 30rem; /* ~480px - very small screens */
+  --breakpoint-sm: 40rem; /* ~640px - small screens (phones) */
+  --breakpoint-md: 60rem; /* ~960px - medium screens (tablets) */
+  --breakpoint-lg: 80rem; /* ~1280px - large screens (laptops) */
+  --breakpoint-xl: 90rem; /* ~1440px - extra-large screens (desktops) */
+  --breakpoint-2xl: 100rem; /* ~1600px - very large screens */
+  --breakpoint-3xl: 120rem; /* ~1920px - ultra-large screens */
+  --logo: #0034d1;
+}
+body {
+  @apply overflow-x-hidden;
+}
