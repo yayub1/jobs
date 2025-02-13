@@ -35,7 +35,7 @@ function Body({
     const fetchjobs = async () => {
       try {
         const response = await fetch(
-          `https://joblisting-rd8f.onrender.com/api/jobs?page=${currentPage}&limit=5`
+          `https://joblisting-rd8f.onrender.com/api/jobs?page=${currentPage}&limit=4`
         );
 
         if (!response.ok) {
