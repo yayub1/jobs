@@ -6,7 +6,7 @@ import unbooked from "../src/assets/unbooked.png";
 
 function SavedJob({ list = [], onBookedToggle = () => {} }) {
   return (
-    <div className="w-200 max-w-[300px] h-max  relative left-[-60px] top-[-40px] flex flex-col gap-4 p-4 bg-white rounded-[20px] shadow-2xl max-xs:left-5 max-sm:left-15 max-sm:top-[30px]">
+    <div className="w-200 max-w-[300px] h-max  relative left-[-60px] top-[-40px] flex flex-col gap-4 p-4 bg-white rounded-[20px] shadow-2xl max-xs:left-5 max-sm:relative max-sm:left-15 max-sm:top-[-5px]">
       {" "}
       {/* Responsive container */}
       <h1 className="text-2xl font-semibold text-center mb-4">
@@ -19,7 +19,7 @@ function SavedJob({ list = [], onBookedToggle = () => {} }) {
           .map((product) => (
             <div
               key={product.id}
-              className="w-full bg-white border rounded-[20px] shadow-md p-3 mb-3 flex flex-col" // Responsive card
+              className="w-full bg-white border rounded-[20px] shadow-md p-3 mb-3 flex flex-col max-sm:w-[100%]" // Responsive card
             >
               <div className="flex justify-end">
                 {" "}

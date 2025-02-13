@@ -14,17 +14,17 @@ function Design({ list, onBookedToggle, currentPage, onPageChange }) {
   };
 
   function handleClick() {
-    console.log("hello");
+    alert("hello");
   }
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto mt-8 flex flex-col gap-6 px-4 max-sm:px-2 relative left-[-40px]">
+    <div className="w-full max-w-[1200px] mx-auto mt-8 flex flex-col gap-6 px-4 max-sm:px-2 relative left-[-40px] max-sm:relative max-sm:top-0 max-sm:left-[-10px]">
       {" "}
       {/* Responsive container */}
       {list.map((product) => (
         <div
           key={product.id}
-          className="w-150 bg-white border rounded-[20px] shadow-lg p-4 max-sm:p-2 "
+          className="w-150 bg-white border rounded-[20px] shadow-lg p-4 max-sm:p-2 max-sm:w-[100%]"
           onClick={handleClick}
         >
           <div className="flex justify-end mb-2">
@@ -67,7 +67,13 @@ function Design({ list, onBookedToggle, currentPage, onPageChange }) {
                 {product.type}
               </span>
               <span className="px-2 py-1 bg-gray-200 rounded-md text-xs max-sm:text-[0.6rem]">
-                {product.salary}
+                {product.salary + " " + product.currency}
+              </span>
+              <span className="px-2 py-1 bg-gray-200 rounded-md text-xs max-sm:text-[0.6rem]">
+                {product.location}
+              </span>
+              <span className="px-2 py-1 bg-gray-200 rounded-md text-xs max-sm:text-[0.6rem]">
+                {product.experienceLevel}
               </span>
             </div>
             <p className="mt-2 text-sm max-sm:text-xs">{product.description}</p>
@@ -106,7 +112,7 @@ function Design({ list, onBookedToggle, currentPage, onPageChange }) {
           >
             {currentPage}
           </button>
-          {currentPage + 1 <= 10 && ( // Replace 10 with totalPages
+          {currentPage + 1 <= 10 && (
             <button
               onClick={() => onPageChange(currentPage + 1)}
               className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -114,7 +120,7 @@ function Design({ list, onBookedToggle, currentPage, onPageChange }) {
               {currentPage + 1}
             </button>
           )}
-          {currentPage + 2 <= 10 && ( // Replace 10 with totalPages
+          {currentPage + 2 <= 10 && (
             <button
               onClick={() => onPageChange(currentPage + 2)}
               className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -133,7 +139,6 @@ function Design({ list, onBookedToggle, currentPage, onPageChange }) {
     </div>
   );
 }
-
 Design.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({

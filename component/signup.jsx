@@ -23,8 +23,14 @@ function Signup({ onClick }) {
         {/* Use object-contain/object-cover */}
       </div>
 
-      <div className="md:w-1/2 flex justify-center items-center">
-        <div className="w-[90%] max-w-[500px] py-12 px-6 md:px-0">
+      <div
+        className="md:w-1/2 flex justify-center items-center "
+        onClick={onClick}
+      >
+        <div
+          className="w-[90%] max-w-[500px] py-12 px-6 md:px-0  h-175"
+          onClick={(event) => event.stopPropagation()}
+        >
           {" "}
           {/* Increased max-w */}
           <div className="logo w-[140px] h-[50px] bg-[#0034D1] rounded-[10px] mb-6">
@@ -77,19 +83,15 @@ function Signup({ onClick }) {
             <div className="flex gap-4">
               <a href="#">
                 <img src={google} alt="Google" className="w-10 h-10" />{" "}
-                {/* Increased size */}
               </a>
               <a href="#">
                 <img src={apple} alt="Apple" className="w-10 h-10" />{" "}
-                {/* Increased size */}
               </a>
               <a href="#">
                 <img src={facebook} alt="Facebook" className="w-10 h-10" />{" "}
-                {/* Increased size */}
               </a>
               <a href="#">
                 <img src={linkedin} alt="LinkedIn" className="w-10 h-10" />{" "}
-                {/* Increased size */}
               </a>
             </div>
           </div>

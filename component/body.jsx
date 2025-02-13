@@ -3,12 +3,33 @@ import Design from "../component/design.jsx";
 import Savedjob from "../component/savedjob.jsx";
 import Filter from "../component/Filter.jsx";
 
-function Body() {
+import PropTypes from "prop-types";
+
+function Body({
+  inp,
+  // setInp,
+  // gett,
+  fillterfun,
+  getfil,
+  setgetfil,
+  location,
+  setlocation,
+  getlocation,
+  level,
+  setlevel,
+  getlevel,
+  currency,
+  setcurrency,
+  getcurrency,
+  reset,
+}) {
+  const [selectedJobTypes, setSelectedJobTypes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [totalPages, setTotalPages] = useState(1); // Add totalPages state
+  const [totalPages, setTotalPages] = useState(1);
+  // const [Alljobs, setAlljobs] = useState([]);
 
   useEffect(() => {
     const fetchjobs = async () => {
@@ -16,13 +37,15 @@ function Body() {
         const response = await fetch(
           `https://joblisting-rd8f.onrender.com/api/jobs?page=${currentPage}&limit=5`
         );
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data);
+
         setProductList(data.jobs);
-        setTotalPages(Math.ceil(data.totalJobs / 5)); // Calculate totalPages
+
+        setTotalPages(Math.ceil(data.totalJobs / 5));
       } catch (error) {
         console.error("Error fetching jobs:", error);
         setError(error);
@@ -33,6 +56,47 @@ function Body() {
 
     fetchjobs();
   }, [currentPage]);
+  const filteredJobs = productList.filter((job) => {
+    if (!job || !job.title) {
+      return false;
+    }
+
+    const Jobcurrency = job.currency.toLowerCase();
+
+    const usercurrency = currency.toLowerCase();
+    const matchcurrency =
+      usercurrency === "" || Jobcurrency.includes(usercurrency);
+
+    const JobexperienceLevel = job.experienceLevel.toLowerCase();
+
+    const jobuser = level.toLowerCase();
+
+    const matchexperienceLevel =
+      jobuser === "" || JobexperienceLevel.includes(jobuser);
+
+    const searchTerm = inp.toLowerCase();
+    const jobTitle = job.title.toLowerCase();
+
+    const joblocation = location.toLowerCase();
+    const JobLocation = job.location.toLowerCase();
+    const matchlocation =
+      joblocation === "" || JobLocation.includes(joblocation);
+    const matchesSearch = searchTerm === "" || jobTitle.includes(searchTerm);
+
+    const matchesFilter =
+      !getfil ||
+      getfil.length === 0 ||
+      getfil.some((type) => type.toLowerCase() === job.type.toLowerCase());
+
+    return (
+      matchesSearch &&
+      matchesFilter &&
+      matchlocation &&
+      matchexperienceLevel &&
+      matchcurrency
+    );
+  });
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -47,24 +111,46 @@ function Body() {
       })
     );
   };
-
+  console.log(productList);
+  console.log(productList);
   return (
-    <div className="flex float-right mr-20 gap-10 max-sm:flex-col max-md:flex-col max-xs:mr-0">
-      <Filter />
+    <div className="flex float-right mr-20 gap-10 max-sm:flex-col max-md:flex-col max-xs:mr-0 read-only:">
+      <Filter
+        selectedJobTypes={selectedJobTypes}
+        setSelectedJobTypes={setSelectedJobTypes}
+        fillterfun={fillterfun}
+        getfil={getfil}
+        setgetfil={setgetfil}
+        location={location}
+        setlocation={setlocation}
+        getlocation={getlocation}
+        level={level}
+        setlevel={setlevel}
+        getlevel={getlevel}
+        currency={currency}
+        seetcurrency={setcurrency}
+        getcurrency={getcurrency}
+        reset={reset}
+      />
       {loading ? (
         <div>Loading...</div>
       ) : error ? (
         <div>Error: {error.message}</div>
-      ) : productList.length > 0 ? (
+      ) : filteredJobs.length > 0 ? (
         <>
           <Design
-            list={productList}
+            list={filteredJobs} // Use filteredJobs instead of productList
             onBookedToggle={handleBookedToggle}
             currentPage={currentPage}
             onPageChange={handlePageChange}
-            totalPages={totalPages} // Pass totalPages
+            totalPages={totalPages}
+            selectedJobTypes={selectedJobTypes}
+            setSelectedJobTypes={setSelectedJobTypes}
           />
-          <Savedjob list={productList} onBookedToggle={handleBookedToggle} />
+          <Savedjob
+            list={filteredJobs} // Use filteredJobs instead of productList
+            onBookedToggle={handleBookedToggle}
+          />
         </>
       ) : (
         <div>No jobs found.</div>
@@ -72,5 +158,22 @@ function Body() {
     </div>
   );
 }
-
+Body.propTypes = {
+  inp: PropTypes.string.isRequired,
+  setInp: PropTypes.func.isRequired,
+  gett: PropTypes.any, // You might need a more specific type if known
+  fillterfun: PropTypes.func.isRequired,
+  getfil: PropTypes.array.isRequired, // Assuming it's an array
+  setgetfil: PropTypes.func.isRequired,
+  location: PropTypes.string.isRequired,
+  setlocation: PropTypes.func.isRequired,
+  getlocation: PropTypes.string.isRequired,
+  level: PropTypes.string.isRequired,
+  setlevel: PropTypes.func.isRequired,
+  getlevel: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
+  setcurrency: PropTypes.func.isRequired,
+  getcurrency: PropTypes.string.isRequired,
+  reset: PropTypes.string.isRequired,
+};
 export default Body;

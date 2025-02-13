@@ -1,9 +1,32 @@
 import "react";
 import range from "../src/assets/range.png";
 
-function Filter() {
+// import { useState } from "react";
+// setSelectedJobTypes, SelectedJobTypes
+function Filter({
+  // selectedJobTypes,
+  // handleCheckboxChange,
+  // setgetfil,
+  // getgil,
+  // eslint-disable-next-line react/prop-types
+  fillterfun,
+  // eslint-disable-next-line react/prop-types
+  location,
+  // setlocation,
+  // eslint-disable-next-line react/prop-types
+  getlocation,
+  // setlevel,
+  // eslint-disable-next-line react/prop-types
+  getlevel,
+  // currency,
+  // setcurrency,
+  // eslint-disable-next-line react/prop-types
+  getcurrency,
+  // eslint-disable-next-line react/prop-types
+  reset,
+}) {
   return (
-    <div className="w-full max-w-[300px] h-max absolute left-[100px] top-[80%] flex flex-col gap-6 p-6 bg-white rounded-[20px] shadow-2xl max-sm:top-[30px] max-sm:left-[10px] max-xs:left-[5px] max-xs:w-[95%]">
+    <div className="w-full max-w-[300px] h-max absolute left-[100px] top-[80%] flex flex-col gap-6 p-6 bg-white rounded-[20px] shadow-2xl max-sm:relative max-sm:top-10 max-sm:left-50 max-xs:left-[5px] max-xs:w-[95%]">
       {" "}
       {/* Responsive container */}
       <div>
@@ -30,38 +53,69 @@ function Filter() {
           <div className="border rounded-[10px] mt-2 p-2">
             {" "}
             {/* Added padding */}
-            <div className="flex items-center mb-2">
-              {" "}
-              {/* Aligned checkbox and label */}
-              <input type="checkbox" id="full-time" className="w-5 h-5 mr-2" />
-              <label htmlFor="full-time" className="text-base">
-                Full-time
-              </label>
-            </div>
-            <div className="flex items-center mb-2">
-              <input type="checkbox" id="part-time" className="w-5 h-5 mr-2" />
-              <label htmlFor="part-time" className="text-base">
-                Part-time
-              </label>
-            </div>
-            <div className="flex items-center mb-2">
-              <input type="checkbox" id="internship" className="w-5 h-5 mr-2" />
-              <label htmlFor="internship" className="text-base">
-                Internship
-              </label>
-            </div>
-            <div className="flex items-center mb-2">
-              <input type="checkbox" id="contract" className="w-5 h-5 mr-2" />
-              <label htmlFor="contract" className="text-base">
-                Contract
-              </label>
-            </div>
-            <div className="flex items-center">
-              <input type="checkbox" id="volunteer" className="w-5 h-5 mr-2" />
-              <label htmlFor="volunteer" className="text-base">
-                Volunteer
-              </label>
-            </div>
+            <form>
+              <div className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  id="full-time"
+                  className="w-5 h-5 mr-2"
+                  onChange={fillterfun}
+                  value="Full-time"
+                />
+                <label htmlFor="full-time" className="text-base">
+                  Full-time
+                </label>
+              </div>
+              {/* ... other checkboxes (part-time, internship, etc.) - similar structure */}
+              <div className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  id="part-time"
+                  className="w-5 h-5 mr-2"
+                  onChange={fillterfun}
+                  value="Part-time"
+                />
+                <label htmlFor="part-time" className="text-base">
+                  Part-time
+                </label>
+              </div>
+              <div className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  id="internship"
+                  className="w-5 h-5 mr-2"
+                  onChange={fillterfun}
+                  value="Internship"
+                />
+                <label htmlFor="internship" className="text-base">
+                  Internship
+                </label>
+              </div>
+              <div className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  id="contract"
+                  className="w-5 h-5 mr-2"
+                  onChange={fillterfun}
+                  value="Contract"
+                />
+                <label htmlFor="contract" className="text-base">
+                  Contract
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="volunteer"
+                  className="w-5 h-5 mr-2"
+                  onChange={fillterfun}
+                  value="Volunteer"
+                />
+                <label htmlFor="volunteer" className="text-base">
+                  Volunteer
+                </label>
+              </div>
+            </form>
           </div>
         </div>
         <div className="mb-4">
@@ -72,6 +126,8 @@ function Filter() {
             type="text"
             placeholder="Enter your location"
             className="border w-full h-10 mt-2 rounded-[10px] text-base p-2"
+            onChange={getlocation}
+            value={location}
           />
         </div>
         <div className="mb-4">
@@ -82,10 +138,11 @@ function Filter() {
             name="experience"
             id="experience"
             className="border w-full h-10 mt-2 rounded-[10px] text-base"
+            onChange={getlevel}
           >
-            <option value="">Entry Level</option>
-            <option value="">Intermediate</option>
-            <option value="">Senior</option>
+            <option value="Entry Level">Entry Level</option>
+            <option value="Mid Level">Mid Level</option>
+            <option value="Senior Level">Senior Level</option>
           </select>
         </div>
         <div className="mb-4">
@@ -144,13 +201,18 @@ function Filter() {
             name="currency"
             id="currency"
             className="border w-full h-10 mt-2 rounded-[10px] text-base"
+            onChange={getcurrency}
           >
-            <option value="">Dollar 💲</option>
-            <option value="">Euro 💶</option>
-            <option value="">Pound 💷</option>
+            <option value="USD">Dollar 💲</option>
+            <option value="Euro">Euro 💶</option>
+            <option value="Pound">Pound 💷</option>
+            <option value="ETB">ETB </option>
           </select>
         </div>
-        <button className="w-full h-12 bg-[#0034D1] text-white rounded-[10px] hover:bg-[#0028A3] text-base">
+        <button
+          className="w-full h-12 bg-[#0034D1] text-white rounded-[10px] hover:bg-[#0028A3] text-base"
+          onClick={reset}
+        >
           {" "}
           {/* Improved button styling */}
           Reset all filter

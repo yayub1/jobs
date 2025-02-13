@@ -8,8 +8,26 @@ import Body from "../component/body.jsx";
 import Home from "../component/home.jsx";
 
 function App() {
+  const [inp, setInp] = useState(""); // Initialize state with an empty string
   const [showLogin, setShowLogin] = useState(false);
   const [showsignup, setShowsignup] = useState(false);
+  const [getfil, setgetfil] = useState([]);
+  const [location, setlocation] = useState("");
+  const [level, setlevel] = useState("");
+  const [currency, setcurrency] = useState("");
+
+  function getcurrency(e) {
+    setcurrency(e.target.value);
+  }
+
+  function getlevel(e) {
+    setlevel(e.target.value);
+  }
+
+  function getlocation(e) {
+    setlocation(e.target.value);
+  }
+  console.log(location);
 
   const handleLoginClick = () => {
     setShowLogin(true);
@@ -27,7 +45,23 @@ function App() {
   const handleClosesignup = () => {
     setShowsignup(false);
   };
+  function gett(e) {
+    setInp(e.target.value);
+  }
 
+  function fillterfun(e) {
+    const inputValue = e.target.value;
+    setgetfil((prev) => [...prev, inputValue]);
+  }
+  function reset() {
+    setgetfil("");
+    setInp("");
+    setlevel("");
+    setcurrency("");
+    setlocation("");
+  }
+
+  console.log(currency);
   return (
     <>
       <nav className="NavBar w-full h-[101.28px] border-2 shadow-2xl border-amber-50 flex justify-around items-center bg-#fff z-1000 max-xs:bg-amber-700 max-sm:bg-amber-500">
@@ -82,6 +116,7 @@ function App() {
         </div>
         {/* nav login */}
       </nav>
+
       {showLogin && <Login onClick={handleCloseLogin} />}
       {showsignup && <Signup onClick={handleClosesignup} />}
 
@@ -91,8 +126,25 @@ function App() {
         !showsignup && ( // Only render if BOTH are false
           <>
             <Home />
-            <Search />
-            <Body />
+            <Search inp={inp} setInp={setInp} gett={gett} />
+            <Body
+              inp={inp}
+              setInp={setInp}
+              gett={gett}
+              fillterfun={fillterfun}
+              getfil={getfil}
+              setgetfil={setgetfil}
+              location={location}
+              setlocation={setlocation}
+              getlocation={getlocation}
+              setlevel={setlevel}
+              level={level}
+              getlevel={getlevel}
+              currency={currency}
+              setcurrency={setcurrency}
+              getcurrency={getcurrency}
+              reset={reset}
+            />
           </>
         )}
     </>

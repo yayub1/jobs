@@ -1,6 +1,8 @@
 import "react";
 import Vector from "../src/assets/Vector.png";
-function Search() {
+
+// eslint-disable-next-line react/prop-types, no-unused-vars
+function Search({ inp, setInp, gett }) {
   return (
     <>
       <div
@@ -10,6 +12,8 @@ function Search() {
         <div className="w-[402px] h-[40px] gap-2 flex justify-items-center items-center ">
           <div>
             <input
+              value={inp}
+              onChange={gett}
               type="search"
               name="search-nav"
               id="search-nav"
@@ -36,4 +40,5 @@ function Search() {
     </>
   );
 }
+
 export default Search;
